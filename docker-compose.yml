@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  dmd:
+    build:
+      context: .
+      platforms: 
+        - "linux/amd64"
+      args:
+        - TARGET=dmd
+  ldc:
+    build:
+      context: .
+      args:
+        - TARGET=ldc
+
+
