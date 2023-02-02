@@ -5,11 +5,17 @@ apt install -y --no-install-recommends curl build-essential ca-certificates libx
 
 D_COMPLILER="dmd-2.101.2"
 
-curl -fsS https://dlang.org/install.sh | bash -s ${D_COMPLILER}
-echo source ~/dlang/${D_COMPLILER}/activate >> ~/.bashrc
-. ~/dlang/${D_COMPLILER}/activate
+wget https://dlang.org/install.sh -O /tmp/install.sh
+cd /tmp
+chmod +x ./install.sh
+./install.sh install ${D_COMPLILER} 
 
-dub init main -n && cd main
+ln -s $(./install.sh get-path ${D_COMPLILER}) /usr/local/bin/dmd
+ln -s $(./install.sh get-path --dub ${D_COMPLILER}) /usr/local/bin/dub
+
+cd ~
+dub init main -n
+cd main
 dub add mir
 dub build
 rm main source/app.d
