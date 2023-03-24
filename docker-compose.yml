@@ -1,22 +1,29 @@
 version: '3'
 
+networks:
+  no_out:
+    name: no_out
+    internal: true
+
 services:
   dmd:
     build:
       context: .
-      platforms: 
-        - "linux/amd64"
       args:
         - TARGET=dmd
+    volumes:
+      - ./app.d:/judge/main/source/app.d
+    networks:
+      - no_out
+    command: bash -c "dub build --skip-registry=all --nodeps --build=release-nobounds && ./judge"
+
   ldc:
     build:
       context: .
       args:
         - TARGET=ldc
     volumes:
-      - ./app.d:/root/main/source/app.d
-    command: bash -c "
-      dub build --skip-registry=all --nodeps --build=release-nobounds &&
-      ./main
-      "
-    
+      - ./app.d:/judge/source/app.d
+    networks:
+      - no_out
+    command: bash -c "dub build --skip-registry=all --nodeps --build=release-nobounds && ./judge"
