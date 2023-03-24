@@ -12,7 +12,7 @@ services:
       args:
         - TARGET=dmd
     volumes:
-      - ./app.d:/judge/main/source/app.d
+      - ./app.d:/judge/source/app.d
     networks:
       - no_out
     command: bash -c "dub build --skip-registry=all --nodeps --build=release-nobounds && ./judge"
