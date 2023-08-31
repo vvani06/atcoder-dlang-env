@@ -3,7 +3,7 @@ set -evx
 sudo apt update
 sudo apt install -y --no-install-recommends curl build-essential ca-certificates libxml2
 
-D_COMPLILER="ldc-1.30.0"
+D_COMPLILER="ldc-1.32.2"
 
 wget https://dlang.org/install.sh -O /tmp/install.sh
 chmod +x /tmp/install.sh

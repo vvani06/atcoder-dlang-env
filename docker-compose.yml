@@ -15,7 +15,9 @@ services:
       - ./app.d:/judge/source/app.d
     networks:
       - no_out
-    command: bash -c "dub build --skip-registry=all --nodeps --build=release-nobounds && ./judge"
+    environment:
+      - DFLAGS="-O -release -boundscheck=off"
+    command: sh -c "dub build --skip-registry=all --nodeps --build=release-nobounds && ./judge"
 
   ldc:
     build:
@@ -26,4 +28,4 @@ services:
       - ./app.d:/judge/source/app.d
     networks:
       - no_out
-    command: bash -c "dub build --skip-registry=all --nodeps --build=release-nobounds && ./judge"
+    command: sh -c "dub build --skip-registry=all --nodeps --build=release-nobounds && ./judge"
